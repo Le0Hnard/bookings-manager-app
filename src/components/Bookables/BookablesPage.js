@@ -1,7 +1,12 @@
-import React from 'react'
+import React from 'react';
+import BookablesList from './BookablesList';
 
-export const BookablesPage = () => {
+const BookablesPage = () => {
   return (
-    <div>BookablesPage</div>
+    <main className="bookables-page">
+      <BookablesList />
+    </main>
   )
-}
+};
+
+export default BookablesPage;

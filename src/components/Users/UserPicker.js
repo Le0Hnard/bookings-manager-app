@@ -1,7 +1,16 @@
-import React from 'react'
+import React from 'react';
+import { users } from '../../static.json';
 
-export const UserPicker = () => {
+const UserPicker = () => {
   return (
-    <div>UserPicker</div>
+    <select>
+      {
+        users.map(user => (
+          <option>{user.name}</option>
+        ))
+      }
+    </select>
   )
-}
+};
+
+export default UserPicker;

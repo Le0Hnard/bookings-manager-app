@@ -1,7 +1,12 @@
-import React from 'react'
+import React from 'react';
+import UsersList from './UsersList';
 
-export const UsersPage = () => {
+const UsersPage = () => {
   return (
-    <div>UsersPage</div>
+    <div className="users-page">
+      <UsersList />
+    </div>
   )
-}
+};
+
+export default UsersPage;
