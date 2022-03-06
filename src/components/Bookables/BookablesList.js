@@ -1,13 +1,17 @@
-import React, { useState, useReducer } from 'react';
-import  { bookables, days, sessions } from '../../static.json';
+import React, { useState, useEffect, useReducer } from 'react';
+import  { days, sessions } from '../../static.json';
 import { FaArrowRight } from 'react-icons/fa';
+import Spinner from '../UI/Spinner';
 import reducer from './reducer';
+import getData from '../../utils/api';
 
 const initialState = {
   group: "Rooms",
   bookableIndex: 0,
   hasDetails: true,
-  bookables
+  bookables: [],
+  isLoading: false,
+  error: false
 };
 
 const BookablesList = () => {
@@ -17,11 +21,25 @@ const BookablesList = () => {
   // const [hasDetails, setHasDetails] = useState(false);
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const {group, bookableIndex, hasDetails, bookables} = state;
+  const {group, bookableIndex, bookables} = state;
+  const {hasDetails, isLoading, error} = state;
 
   const bookablesInGroup = bookables.filter(b=> b.group === group);
   const groups = [...new Set(bookables.map(b => b.group))];
   const bookable = bookablesInGroup[bookableIndex];
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_BOOKABLES_REQUEST" });
+    getData("http://localhost:3001/bookables")
+    .then(response => dispatch({
+      type: "FETCH_BOOKABLES_SUCCESS",
+      payload: response
+    }))
+    .catch(error => dispatch({
+      type: "FETCH_BOOKABLES_ERROR",
+      payload: error
+    }));
+  }, []);
 
   // const nextBookable = () => {
   //   setBookableIndex(i => (i + 1) % bookablesInGroup.length);
@@ -48,6 +66,14 @@ const BookablesList = () => {
   const toggleDetails = () => {
     dispatch({ type: "TOGGLE_HAS_DETAILS" });
   };
+
+  if(error) {
+    return <p>{error.message}</p>
+  }
+
+  if(isLoading) {
+    return <p><Spinner /> Loading bookables...</p>
+  }
 
   return (
     <>

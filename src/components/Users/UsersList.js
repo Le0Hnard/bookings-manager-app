@@ -1,9 +1,27 @@
-import React, { useState } from 'react';
-import { users } from '../../static.json';
+import React, { useState, useEffect } from 'react';
+import PageSpinner from '../UI/PageSpinner';
+import getData from '../../utils/api';
+// import { users } from '../../static.json';
 
 const UsersList = () => {
   const [usersIndex, setUsersIndex] = useState(0);
-  const selectedUser = users[usersIndex];
+  const [users, setUsers] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/users")
+    .then(resp => resp.json())
+    .then(data => setUsers(data));
+
+    getData("http://localhost:3001/users")
+    .then(data => data)
+    .catch(error => error);
+  });
+
+  if(users === null) {
+    return <PageSpinner />;
+  }
+
+  const selectedUser = users ? users[usersIndex] : null;
 
   return (
     <>

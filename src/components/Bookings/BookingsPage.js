@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import WeekPicker from './WeekPicker';
 
 const BookingsPage = () => {
   return (
-    <div>BookingsPage</div>
+    <main className="bookings-page">
+      <p>Bookeings!</p>
+      <WeekPicker date={new Date()} />
+    </main>
   )
 };
 
