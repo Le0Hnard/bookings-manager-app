@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useRef } from 'react';
 import  { days, sessions } from '../../static.json';
 import { FaArrowRight } from 'react-icons/fa';
 import Spinner from '../UI/Spinner';
@@ -23,6 +23,8 @@ const BookablesList = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {group, bookableIndex, bookables} = state;
   const {hasDetails, isLoading, error} = state;
+  const timerRef = useRef(null);
+  const nextButtonRef = useRef();
 
   const bookablesInGroup = bookables.filter(b=> b.group === group);
   const groups = [...new Set(bookables.map(b => b.group))];
@@ -41,6 +43,18 @@ const BookablesList = () => {
     }));
   }, []);
 
+  // useEffect(() => {
+  //   timerRef.current = setInterval(() => {
+  //     dispatch({ type: "NEXT_BOOKABLE" });
+  //   }, 3000);
+
+  //   return stopPresentation;
+  // }, []);
+
+  // const stopPresentation = () => {
+  //   clearInterval(timerRef.current);
+  // };
+
   // const nextBookable = () => {
   //   setBookableIndex(i => (i + 1) % bookablesInGroup.length);
   // };
@@ -57,6 +71,7 @@ const BookablesList = () => {
       type: "SET_BOOKABLE",
       payload: selectedIndex
     });
+    nextButtonRef.current.focus();
   };
 
   const nextBookable = () => {
@@ -96,7 +111,7 @@ const BookablesList = () => {
           }
         </ul>
         <p>
-          <button className="btn" onClick={nextBookable} autoFocus>
+          <button className="btn" onClick={nextBookable} ref={nextButtonRef} autoFocus>
             <FaArrowRight />
             <span>Next</span>
           </button>
@@ -115,6 +130,7 @@ const BookablesList = () => {
                     <input type="checkbox" checked={hasDetails} onChange={toggleDetails} />
                     Show Details
                   </label>
+                  {/* <button className="btn" onClick={stopPresentation}>Stop</button> */}
                 </span>
               </div>
 

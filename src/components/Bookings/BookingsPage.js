@@ -4,7 +4,7 @@ import WeekPicker from './WeekPicker';
 const BookingsPage = () => {
   return (
     <main className="bookings-page">
-      <p>Bookeings!</p>
+      <p>Bookings!</p>
       <WeekPicker date={new Date()} />
     </main>
   )
