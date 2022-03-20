@@ -14,7 +14,7 @@ const BookableDetails = ({ bookable }) => {
         <h2>{bookable.title}</h2>
         <span className="controls">
           <label>
-            <input tpe="checkbox" onChange={toggleDetails} checked={hasDetails} />
+            <input type="checkbox" onChange={toggleDetails} checked={hasDetails} />
             Show Details
           </label>
         </span>
