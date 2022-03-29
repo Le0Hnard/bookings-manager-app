@@ -58,7 +58,7 @@ const BookablesList = ({ bookable, setBookable }) => {
 
   const changeBookable = (selectedBookable) => {
     setBookable(selectedBookable);
-    nextButtonRef.current.focus();
+    // nextButtonRef.current.focus();
   };
 
   const nextBookable = () => {

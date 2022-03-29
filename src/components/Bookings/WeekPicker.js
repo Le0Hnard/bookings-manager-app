@@ -3,8 +3,8 @@ import reducer from './weekReducer';
 import { getWeek } from '../../utils/date-wrangler';
 import { FaChevronLeft, FaCalendarDay, FaChevronRight, FaCalendarCheck } from 'react-icons/fa';
 
-export default function WeekPicker({ date }) {
-  const [week, dispatch] = useReducer(reducer, date, getWeek);
+export default function WeekPicker({ dispatch }) {
+  // const [week, dispatch] = useReducer(reducer, date, getWeek);
   const [dateText, setDateText] = useState("2020-06-24");
   // const textboxRef = useRef();
 
@@ -37,9 +37,9 @@ export default function WeekPicker({ date }) {
           <span>Next</span>
         </button>
       </p>
-      <p>
+      {/* <p>
         {week.start.toDateString()} - {week.end.toDateString()}
-      </p>
+      </p> */}
     </div>
   );
 }
